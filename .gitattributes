@@ -1,0 +1,8 @@
+*.js linguist-language=ignore
+tailwind.config.js linguist-language=ignore
+next.config.js linguist-language=ignore
+*.css linguist-language=CSS
+
+# Ensure TypeScript files are detected
+*.ts linguist-detectable=true
+*.tsx linguist-detectable=true
