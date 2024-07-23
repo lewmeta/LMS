@@ -15,8 +15,6 @@ export async function POST(
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        console.log("UserId:", userId)
-
         if (!title) {
             return new NextResponse("Course title is required!")
         }
