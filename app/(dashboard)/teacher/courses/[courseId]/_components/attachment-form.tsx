@@ -29,7 +29,9 @@ export const AttachmentForm = ({
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const router = useRouter();
 
+
     const toggleEdit = () => setIsEditing((current) => !current);
+
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
