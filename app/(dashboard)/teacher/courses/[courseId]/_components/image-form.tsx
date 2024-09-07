@@ -35,8 +35,8 @@ export const ImageForm = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/courses/${courseId}`, values);
-            toast.success("Course updated");
             router.refresh();
+            toast.success("Course updated");
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data || "something went wrong")

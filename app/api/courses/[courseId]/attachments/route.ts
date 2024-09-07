@@ -40,7 +40,9 @@ export async function POST(
                 name,
                 courseId: params.courseId,
             }
-        })
+        });
+
+        return NextResponse.json(attachment)
 
     } catch (error) {
         console.log("[COURSE_ID]", error);
