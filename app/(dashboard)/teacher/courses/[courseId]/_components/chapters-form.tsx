@@ -38,6 +38,8 @@ export const ChaptersForm = ({
     const [isCreating, setIsCreating] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
 
+    const router = useRouter()
+
     const toggleCreating = () => {
         setIsCreating((current) => !current)
     }
@@ -53,7 +55,10 @@ export const ChaptersForm = ({
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            console.log({ values: values });
+            await axios.post(`/api/courses/${courseId}/chapters`, values);
+            toast.success("Chapter created.");
+            toggleCreating();
+            router.refresh();
         } catch (error) {
             toast.error("something went wrong");
         } finally {
@@ -61,12 +66,23 @@ export const ChaptersForm = ({
         }
     }
 
-    const onReorder = async () => {
-
+    const onReorder = async (updateData: { id: string; position: number }[]) => {
+        try {
+            setIsUpdating(true);
+            await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+                list: updateData,
+            });
+            toast.success("Chapters reordered.");
+            router.refresh();
+        } catch (error) {
+            toast.error("Something went wrong");
+        } finally {
+            setIsUpdating(false);
+        }
     }
 
     const onEdit = (id: string) => {
-
+        router.push(`/teacher/courses/${courseId}/chapters/${id}`)
     }
     return (
         <div className="relative mt-6 border bg-slate-100 rounded-md p-4 dark:bg-gray-800">
@@ -124,9 +140,16 @@ export const ChaptersForm = ({
                 <div className={cn("text-sm mt-2", !initialData.chapters.length && "text-slate-500 italic")}>
                     {!initialData.chapters.length && "No chapters"}
                     <ChapterList
-
+                        items={initialData.chapters || []}
+                        onEdit={onEdit}
+                        onReorder={onReorder}
                     />
                 </div>
+            )}
+            {!isCreating && (
+                <p className="text-xs text-muted-foreground mt-4">
+                    Drag and drop to reorder the chapters
+                </p>
             )}
         </div>
     )
