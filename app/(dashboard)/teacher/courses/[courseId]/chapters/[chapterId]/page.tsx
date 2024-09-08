@@ -8,6 +8,8 @@ import { ChapterTitleForm } from "./_components/chapter-title-form";
 import { ChapterAccessForm } from "./_components/chapter-access-form";
 import { ChapterVideoForm } from "./_components/chapter-video-form";
 import { ChapterDescriptionForm } from "./_components/chapter-description-form";
+import { Banner } from "@/components/banner";
+import { ChapterActions } from "./_components/chapter-actions";
 
 interface ChapterIdPageProps {
     params: {
@@ -56,9 +58,12 @@ const ChapterIdPage = async ({
 
     return (
         <>
-            {/* {!chapter.isPublished && (
-
-        )} */}
+            {!chapter.isPublished && (
+                <Banner
+                    variant="warning"
+                    label="This chapter is unpublished. It will not be visible in the course"
+                />
+            )}
             <div className="p-6">
                 <div className="flex items-center justify-between">
                     <div className="w-full">
@@ -78,7 +83,12 @@ const ChapterIdPage = async ({
                             Complete all fields {completionText}
                         </span>
                     </div>
-                    TODO: Chapter Action.
+                    <ChapterActions
+                        disabled={!isComplete}
+                        courseId={params.courseId}
+                        chapterId={params.chapterId}
+                        isPublished={chapter.isPublished}
+                    />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
                     <div className="space-y-4">
@@ -114,9 +124,9 @@ const ChapterIdPage = async ({
                             <h2 className="text-xl font-medium">Add a video</h2>
                         </div>
                         <ChapterVideoForm
-                        // initialData={chapter}
-                        // courseId={params.courseId}
-                        // chapterId={params.chapterId}
+                            initialData={chapter}
+                            courseId={params.courseId}
+                            chapterId={params.chapterId}
                         />
                     </div>
                 </div>
