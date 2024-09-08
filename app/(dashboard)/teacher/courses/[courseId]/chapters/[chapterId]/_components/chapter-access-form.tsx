@@ -101,7 +101,7 @@ export const ChapterAccessForm = ({
                             control={form.control}
                             name="isFree"
                             render={({ field }) => (
-                                <FormItem className="flex flex-row items-start space-x-3">
+                                <FormItem className="flex flex-row items-center mb-2 space-x-2">
                                     <FormControl>
                                         <Checkbox
                                             checked={field.value}
