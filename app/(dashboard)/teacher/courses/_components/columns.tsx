@@ -89,7 +89,7 @@ export const columns: ColumnDef<Course>[] = [
 
             return (
                 <Badge className={cn(
-                    "bg-slate-500",
+                    "bg-slate-500 w-fit flex items-center ",
                     isPublished && "bg-sky-700"
                 )}>
                     {isPublished ? "Published" : "Draft"}
