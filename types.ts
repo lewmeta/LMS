@@ -1,6 +1,6 @@
-import { Category } from "@prisma/client"
+import { Category, Course } from "@prisma/client"
 
-export type CourseWithProgressWithCategory = {
+export type CourseWithProgressWithCategory = Course & {
     category: Category | null;
     chapters: { id: string }[];
     progress: number | null;
