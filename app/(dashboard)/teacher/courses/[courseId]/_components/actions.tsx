@@ -70,7 +70,7 @@ export const Actions = ({
                 onClick={onClick}
                 disabled={disabled || isLoading}
                 variant="outline"
-                className={cn(disabled && "!cursor-not-allowed")}
+                className={cn("", disabled || isLoading ? "cursor-not-allowed" : "cursor-pointer")}
                 size="sm"
             >
                 {isPublished ? "Unpublish" : "Publish"}
