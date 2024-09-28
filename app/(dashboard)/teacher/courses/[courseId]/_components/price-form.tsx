@@ -63,24 +63,22 @@ export const PriceForm = ({
     return (
         <div className="mt-6 border bg-slate-100 rounded-md p-4 dark:bg-gray-800">
             <div className="font-medium flex items-center justify-between">
-                Price Description
-                <Button
-                    onClick={toggleEdit}
-                    variant="ghost"
-                >
+                Course price
+                <Button onClick={toggleEdit} variant="ghost">
                     {isEditing ? (
                         <>Cancel</>
                     ) : (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit
+                            Edit price
                         </>
                     )}
                 </Button>
             </div>
             {!isEditing && (
-                <p className={cn("text-sm mt-2",
-                    !initialData.description && "text-slate-500 italic"
+                <p className={cn(
+                    "text-sm mt-2",
+                    !initialData.price && "text-slate-500 italic"
                 )}>
                     {initialData.price
                         ? formatPrice(initialData.price)
@@ -92,7 +90,7 @@ export const PriceForm = ({
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-4 mt-4 dark:text-gray-300"
+                        className="space-y-4 mt-4"
                     >
                         <FormField
                             control={form.control}
@@ -102,15 +100,15 @@ export const PriceForm = ({
                                     <FormControl>
                                         <Input
                                             type="number"
-                                            step={"0.01"}
+                                            step="0.01"
                                             disabled={isSubmitting}
-                                            placeholder="Set a price for you course."
+                                            placeholder="Set a price for your course"
                                             {...field}
                                         />
                                     </FormControl>
+                                    <FormMessage />
                                 </FormItem>
                             )}
-
                         />
                         <div className="flex items-center gap-x-2">
                             <Button
@@ -120,6 +118,8 @@ export const PriceForm = ({
                                 Save
                             </Button>
                         </div>
+
+
                     </form>
                 </Form>
             )}
