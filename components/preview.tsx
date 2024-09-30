@@ -19,6 +19,7 @@ export const Preview = ({
         ssr: false
     }), []);
 
+
     return (
         <div className="bg-white dark:bg-slate-700">
             <ReactQuill
@@ -27,5 +28,5 @@ export const Preview = ({
                 readOnly={true}
             />
         </div>
-    )
+    );
 }
