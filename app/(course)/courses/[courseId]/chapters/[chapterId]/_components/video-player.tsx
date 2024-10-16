@@ -18,16 +18,16 @@ interface VideoPlayerProps {
     isLocked: boolean;
     completeOnEnd: boolean;
     title: string;
-}
+  }
 
 export const VideoPlayer = ({
-    chapterId,
-    completeOnEnd,
+    playbackId,
     courseId,
-    isLocked,
-    title,
+    chapterId,
     nextChapterId,
-    playbackId
+    isLocked,
+    completeOnEnd,
+    title,
 }: VideoPlayerProps) => {
     const [isReady, setIsReady] = useState(false);
     const router = useRouter();
@@ -37,7 +37,7 @@ export const VideoPlayer = ({
         try {
             if (completeOnEnd) {
                 await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
-                    isCompleted: true
+                    isCompleted: true,
                 });
 
                 if (!nextChapterId) {
@@ -51,14 +51,15 @@ export const VideoPlayer = ({
                     router.push(`/courses/${courseId}/chapters/${nextChapterId}`)
                 }
             }
-        } catch (error) {
+        } catch {
             toast.error("Something went wrong");
         }
     }
+
     return (
         <div className="relative aspect-video">
             {!isReady && !isLocked && (
-                <div className="absolute inset-0 flex items-center justify-center bg-slate-800 darkg-bg-slate-200">
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-800  dark:bg-slate-200">
                     <Loader2 className="h-8 w-8 animate-spin text-secondary" />
                 </div>
             )}
@@ -69,6 +70,18 @@ export const VideoPlayer = ({
                         This chapter is locked
                     </p>
                 </div>
+            )}
+            {!isLocked && playbackId && (
+                <MuxPlayer
+                    title={title}
+                    className={cn(
+                        !isReady && "hidden"
+                    )}
+                    onCanPlay={() => setIsReady(true)}
+                    onEnded={onEnd}
+                    autoPlay
+                    playbackId={playbackId}
+                />
             )}
         </div>
     )
