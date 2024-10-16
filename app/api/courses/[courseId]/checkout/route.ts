@@ -55,7 +55,7 @@ export async function POST(
                     product_data: {
                         name: course.title,
                         description: course.description!,
-                        images: [course.imageUrl as string],
+                        images: [course.imageUrl!],
                     },
                     unit_amount: Math.round(course.price! * 100),
                 },
