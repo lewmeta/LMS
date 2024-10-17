@@ -76,7 +76,6 @@ const Page = async ({
                         </h2>
                         {purchase ? (
                             <div>
-                                {/* TODO: Course progress button */}
                                 <CourseProgressButton
                                     chapterId={params.chapterId}
                                     courseId={params.courseId}
