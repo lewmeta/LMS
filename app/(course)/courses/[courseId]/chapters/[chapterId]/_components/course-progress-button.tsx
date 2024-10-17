@@ -12,14 +12,14 @@ import { boolean } from "zod";
 
 interface CourseProgressButtonProps {
     chapterId: string;
-    couresId: string;
-    isCompleted?: string;
+    courseId: string;
+    isCompleted?: boolean;
     nextChapterId?: string;
 }
 
 export const CourseProgressButton = ({
     chapterId,
-    couresId,
+    courseId,
     isCompleted,
     nextChapterId,
 }: CourseProgressButtonProps) => {
@@ -32,7 +32,7 @@ export const CourseProgressButton = ({
         try {
             setIsLoading(true)
 
-            await axios.put(`/api/courses/${couresId}/chapters/${chapterId}/progress`, {
+            await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
                 isCompleted: !isCompleted
             })
 
@@ -41,7 +41,7 @@ export const CourseProgressButton = ({
             }
 
             if (!isCompleted && nextChapterId) {
-                router.push(`/courses/${couresId}/chapters/${nextChapterId}`)
+                router.push(`/courses/${courseId}/chapters/${nextChapterId}`)
             }
 
             toast.success("Progress updated!")
@@ -63,7 +63,7 @@ export const CourseProgressButton = ({
             variant={isCompleted ? 'outline' : 'success'}
             className="w-full md:w-auto"
         >
-            {isCompleted ? 'Not completed' : 'Mar as complete'}
+            {isCompleted ? 'Not completed' : 'Mark as complete'}
         </Button>
     )
 }
